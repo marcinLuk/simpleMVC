@@ -2,86 +2,106 @@
 /**
  * @return void 
  * 
- * steruje aplikacją 
+ * application engine
  */
 Class App {
 
     /**
-     * @var array tablica ze składowymi adresu URL
+     * @var array array witch URL components 
      */
     private $route = [];
 
     /**
-     * @var int  ilość elementów w tablicy $route
+     * @var int amount of elements in array $route
      */
     private $route_count = 0;
 
     /**
-     * @var array  tablica z nazwami metod
+     * @var array array with methods names
      */
     private $methods = [];
 
     /**
-     * @var string nazwa modułu
+     * @var string name of module
      */
     private $class_name;
 
     /**
-     * @var object przechowuje instancje klasy kontrolera
+     * @var string name of controller
+     */
+    private $controller_name;
+
+    /**
+     * @var object contain new instance of Controller Class
      */
     private $page;
 
     /**
      * @return void 
      * 
-     * przypisuje wartości do właściwości
+     * assigns values to propeties,
+     * if URL dosen't contain any class and method i'ts redirects to /home/index/
      */
     public function __construct() {
 
         $this->route = explode('/', URL);
+        $this->route = array_slice($this->route, 2);
+        $remove = array_pop($this->route); 
         $this->route_count = count($this->route);
 
-        if  ($this->route_count >= 4) {
-            $this->class_name = $this->route[2];
+        if ( empty ( $this->route_count ) )  {
+            $this->redirect('home/index/');
         }
 
-        if ( $this->route_count >= 5  ) {
-            $this->methods =  array_slice($this->route, 3);
+        if  ($this->route_count >= 1) {
+            $this->class_name = $this->route[0];
+            $this->controller_name = ucfirst( $this->class_name );
         }
+
+        if ( $this->route_count >= 2  ) {
+            $this->methods =  array_slice($this->route, 1);
+        }
+
     
     }
 
     /**
      * @return void
      * 
-     * inicjuje aplikacje, przekierowywuje na strone główną 
+     * starts application
+     * if URL dosen't contain method it's loading index method
      */
     public function start() {
 
-        $controller_name = ucfirst( $this->class_name );
+        include CONTROLLER_PATH.$this->controller_name.'.php';
+        $this->page = new $this->controller_name;
+        $this->page->get_header();
 
-        if ( file_exists( CONTROLLER_PATH.$controller_name.'.php' ) ) {
+        if ( count( $this->methods ) != 0 ) {
 
-            include CONTROLLER_PATH.$controller_name.'.php';
-            $this->page = new $controller_name;
-            $this->page->get_header();
+            try {
 
-            if ( isset( $this->methods ) ){
                 $this->load_methods();
-            } 
 
-            $this->page->get_footer();
+            } catch (Exeption $e) {
+
+                echo $e->getMessage();
+
+            }
 
         } else {
 
-            $this->redirect('home/index/');
-
+            $this->redirect('index/');
         }
- 
+
+        $this->page->get_footer();
     }
 
     /**
+     * @param string $url
      * @return void
+     * 
+     * redirect to given URL
      */
     private function redirect($url) {
 
@@ -93,20 +113,26 @@ Class App {
     /**
      * @return void
      * 
-     * sprawdza czy metoda istnieje i ją wczytuje  
+     * checking if given method exist and trays to load it's
      */
     private function load_methods() {
 
         foreach ($this->methods as $method) {
 
+
             if( method_exists ( $this->class_name, $method ) ) {
 
                 $this->page->$method();
             
+            } else {
+
+                throw new Exception ('Method "'.$method.'" does not exist ');
+
             }
 
         }
 
     }
+
 
 }

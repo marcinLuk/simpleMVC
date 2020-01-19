@@ -1,13 +1,13 @@
 <?php 
 /**
- * przechowuje metody klasy Model
+ * It contain methods and properties fof Controller Class
  */
 abstract class Model {
 
     /**
      * @return void 
      * 
-     * próbuje nawiązać połączenie z bazą danych 
+     * connect to database
      */
     public function __construct() {
 

@@ -1,9 +1,8 @@
 <?php
 
 include 'core/classes/Model.php';
-
 /**
- * Przykładowa strona 
+ * It contain methods and properties fof ExampleModel Class
  */
 class ExampleModel extends Model {
 

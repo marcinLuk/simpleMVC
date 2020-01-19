@@ -1,20 +1,20 @@
 <?php
 /**
- * przechpwuje metody klasy Controller
+ * It contain methods and properties fof Controller Class
  */
 abstract class Controller {
     /**
-     * @var object przechowuje obiekt klasy Model
+     * @var object contain object for Model class
      */
     private $model;
 
     /**
-     * @var string przechowuje nazwe obecnej klasy 
+     * @var string contain current class name 
      */
     private $class_name;
 
     /**
-     * tworzy instancje klasy Model, przechowje nazwe klasy 
+     * create new instance of Model class, assign class name to $class_name property 
      */
     public function __construct() {
 
@@ -32,7 +32,7 @@ abstract class Controller {
      * @param string $template_name 
      * @return void
      * 
-     * ładuje templatke html
+     * include view template
      */
     public function view( $template_name ) {
 

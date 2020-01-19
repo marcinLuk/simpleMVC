@@ -3,17 +3,17 @@
 include 'core/classes/Controller.php';
 
 /**
- * kontroler strony głównej 
- * klasa Home musi posiadać metodę index za pomoca której wyświetlana jest strona główna
- * Routing bazuje na klasie oraz odpowiednich metodach
- * np. http://example.com/SimpleMVC/nazwaKlasy/nazwaMetody1/nazwaMetody2/
+ * Main page Controller
+ * Class must contain index method
+ * Routing is based on class and methods:
+ * example - http://example.com/SimpleMVC/className/method1/method2/
  */
 class Home extends Controller {
 
     /**
      * @return void
      * 
-     * wyświetla strone główną 
+     * looking for view 'index' and displays it
      */
     public function index() {
         $this->view('index');
