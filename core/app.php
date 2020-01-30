@@ -1,4 +1,5 @@
 <?php 
+namespace Core;
 /**
  * @return void 
  * 
@@ -50,19 +51,18 @@ Class App {
         $this->route_count = count($this->route);
 
         if ( empty ( $this->route_count ) )  {
-            $this->redirect('home/index/');
+            Header('Location: home/index/');
+            die;
         }
 
         if  ($this->route_count >= 1) {
-            $this->class_name = $this->route[0];
+            $this->class_name = ucfirst($this->route[0]);
             $this->controller_name = ucfirst( $this->class_name );
         }
 
         if ( $this->route_count >= 2  ) {
             $this->methods =  array_slice($this->route, 1);
         }
-
-    
     }
 
     /**
@@ -73,8 +73,9 @@ Class App {
      */
     public function start() {
 
-        include CONTROLLER_PATH.$this->controller_name.'.php';
-        $this->page = new $this->controller_name;
+        $aplication = '\\App\\controllers\\'.$this->controller_name;
+        $this->page = new $aplication;
+
         $this->page->get_header();
 
         if ( count( $this->methods ) != 0 ) {
@@ -91,23 +92,10 @@ Class App {
 
         } else {
 
-            $this->redirect('index/');
+            $this->page->redirect('index/');
         }
 
         $this->page->get_footer();
-    }
-
-    /**
-     * @param string $url
-     * @return void
-     * 
-     * redirect to given URL
-     */
-    private function redirect($url) {
-
-        header('Location: '.$url);
-        die;
-
     }
 
     /**
@@ -120,13 +108,13 @@ Class App {
         foreach ($this->methods as $method) {
 
 
-            if( method_exists ( $this->class_name, $method ) ) {
+            if( method_exists ( $this->page, $method ) ) {
 
                 $this->page->$method();
             
             } else {
 
-                throw new Exception ('Method "'.$method.'" does not exist ');
+                throw new \Exception ('Method "'.$method.'" does not exist ');
 
             }
 

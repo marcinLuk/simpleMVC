@@ -1,10 +1,9 @@
 <?php
-
-include 'core/classes/Model.php';
+namespace App\models;
 /**
  * It contain methods and properties fof HomeModel Class
  */
-class HomeModel extends Model {
+class HomeModel extends \Core\Model {
 
 
 }

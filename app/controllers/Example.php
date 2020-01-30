@@ -1,18 +1,36 @@
 <?php
-
-include 'core/classes/Controller.php';
+namespace App\controllers;
 /**
- * Example Page
- * Controller Classes must contain index method
+ * Template for Controllers
+ * it must contain index method
  * Routing is based on class and methods:
- * example - http://example.com/SimpleMVC/className/method1/method2/
+ * example - http://example.com/SimpleMVC/className/index/method1/method2/
  */
-class Example extends Controller {
+class Example extends \Core\Controller {
 
+    /**
+     * @return void
+     * 
+     * this will be the first method that will be automatically loaded
+     */
     public function index() {
 
-        $this->view('test');
+        $this->get_view('title');
+        $this->get_view('button');
 
     }
 
+    public function exampleMethod() {
+
+        $additional_data = [
+            'title'=>'Success',
+            'title2'=>'Everything Works!',
+        ];
+        /**
+         * get_view() will store all additional data in $display array 
+         */
+        $this->get_view( 'anotherView', $additional_data );
+
+    }
+    
 }

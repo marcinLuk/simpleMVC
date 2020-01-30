@@ -12,7 +12,7 @@
 
     <script type="text/javascript" src="<?php echo ROOT; ?>/public/js/main.js" ></script>
 
-    <title></title>
+    <title><?php echo $title; ?></title>
   </head>
   <body>
-    
+ 

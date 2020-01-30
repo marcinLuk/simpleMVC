@@ -1,11 +1,10 @@
 <?php 
 
+require_once __DIR__.'\vendor\autoload.php';
 include 'core/config.php';
-include 'core/app.php';
 
-$app = new App;
+$app = new Core\App;
 
 $app->start();
-
 
 ?>

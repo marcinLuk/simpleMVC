@@ -1,22 +1,20 @@
 <?php
-
-include 'core/classes/Controller.php';
-
+namespace App\controllers;
 /**
- * Main page Controller
- * Class must contain index method
+ * This is main page controller 
+ * Class must contain index method, app will try automatically load index method at first;
  * Routing is based on class and methods:
- * example - http://example.com/SimpleMVC/className/method1/method2/
+ * example - http://example.com/SimpleMVC/className/index/method1/method2/
  */
-class Home extends Controller {
-
+class Home extends \Core\Controller {
     /**
      * @return void
      * 
-     * looking for view 'index' and displays it
      */
     public function index() {
-        $this->view('index');
+
+        $this->get_view('index');
+
     }
     
 }
