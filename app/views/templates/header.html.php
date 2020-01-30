@@ -14,5 +14,5 @@
 
     <title><?php echo $title; ?></title>
   </head>
-  <body>
+  <body class="container-fluid d-flex flex-column justify-content-center align-items-center">
  
