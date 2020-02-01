@@ -5,7 +5,7 @@ Simple MVC Framework
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-* [Examples of use](#Examples-of-use)
+* [Launch](#Launch)
 
 ## General info
 This project is a simple MVC framework
