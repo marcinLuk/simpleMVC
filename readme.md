@@ -18,7 +18,7 @@ Project is created with:
 To run this project, download or clone it.
 You need to change database configuration in config.php to work properly.  
 
-## Examples of use 
+## Launch
 1. Create a new file in app/controllers (it must contain index() method, this will be the first method that will be automatically loaded) 
 2. Create a new model in app/model 
 3. Create a new folder in app/views ( name of the folder must be equal to the controller name )
